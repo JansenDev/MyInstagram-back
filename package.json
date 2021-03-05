@@ -1,0 +1,22 @@
+{
+  "name": "myinstagram",
+  "version": "1.0.0",
+  "description": "Servidor de la app myInstagram",
+  "main": "index.js",
+  "author": "Janssen Segura",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./index.js"
+  },
+  "dependencies": {
+    "apollo-server": "^2.21.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.18"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
