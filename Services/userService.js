@@ -1,7 +1,8 @@
 // Implementacion(resolvers) de las consultas de typeDefs
 const User = require('../models/user')
 const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { getIntrospectionQuery } = require('graphql');
 
 function createToken(user, SECRET_KEY, expiresIn){
     const { id, name, email, username} = user;
@@ -24,10 +25,10 @@ async function register( input) {
     const {email, username, password} = newUser;
  
     const foundEmail = await User.findOne({ email });
-    if(foundEmail) throw new Error("Email exists.");
+    if(foundEmail) throw new Error("El email ingresado ya registrado");
 
      const foundUsername = await User.findOne({ username });
-     if(foundUsername) throw new Error("Username exists.");
+     if(foundUsername) throw new Error("El username ingresado ya existe.");
      
      //Encrip password
      const salt = await bcryptjs.genSaltSync(10);
@@ -51,14 +52,22 @@ async function login(input){
     
     const passwordSuccess = await bcryptjs.compare(password, userFound.password);
     if(!passwordSuccess) throw new Error( "Email or password incorrect!" );
-    console.log( process.env.SECRET_KEY )
-    console.log(createToken(userFound, process.env.SECRET_KEY , "1h"))
 
     return {
         token: createToken(userFound, process.env.SECRET_KEY , "1h")
     }
 }
+
+async function getUser(id, username){
+    let user;
+    if (id) user = await User.findById(id);
+    if(username) user = await User.findOne({username});
+    if(!user) throw new Error("El usuario no existe");
+    
+    return user;
+}   
 module.exports = {
     register,
     login,
+    getUser,
 }

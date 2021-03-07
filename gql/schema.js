@@ -37,7 +37,7 @@ const typeDefs = gql`
     # GET
     type Query {
         #User
-        getUser: User
+        getUser(id:ID, username:String):User
     }
     # POST, PUT, DELETE
     type Mutation{

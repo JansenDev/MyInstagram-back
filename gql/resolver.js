@@ -6,10 +6,7 @@ const resolvers = {
     //Tipo de consulta
     Query:{
         //Nombre de la funcion e implementacion
-        getUser:() =>{
-            console.log("Obteniendo usuario");
-            return null;
-        },
+        getUser: (_, { id, username })=>userService.getUser(id, username) ,
     },
     //Tipo de consulta
     Mutation:{
