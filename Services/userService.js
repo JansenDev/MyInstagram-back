@@ -95,14 +95,39 @@ async function updateAvatar(file, ctx) {
 }
 
 async function deleteAvatar(ctx) {
-  const { id } = ctx.user ;
+  const { id } = ctx.user;
 
   try {
-    await User.findByIdAndUpdate(id, { avatar:""});
+    await User.findByIdAndUpdate(id, { avatar: "" });
     return true;
   } catch (error) {
     console.log(error);
-    return false
+    return false;
+  }
+}
+
+async function updateUser(input, ctx) {
+  try {
+    const { id } = ctx.user;
+    if (input.oldPassword && input.newPassword) {
+      const userFound = await User.findById(id);
+      const userCompare = await bcryptjs.compare(
+        input.oldPassword,
+        userFound.password
+      );
+      if (!userCompare) throw new Error("Contraseña incorrecta");
+
+      const salt = bcryptjs.genSaltSync(10);
+      const newPasswordEncrypted = await bcryptjs.hash(input.newPassword, salt);
+
+      await User.findByIdAndUpdate(id, { password: newPasswordEncrypted });
+    } else {
+      await User.findByIdAndUpdate(id, input);
+    }
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
   }
 }
 
@@ -112,4 +137,5 @@ module.exports = {
   getUser,
   updateAvatar,
   deleteAvatar,
+  updateUser,
 };

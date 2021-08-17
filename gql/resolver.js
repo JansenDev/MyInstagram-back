@@ -13,8 +13,9 @@ const resolvers = {
     register: (_, { input }) => userService.register(input),
     login: (_, { input }) => userService.login(input),
     updateAvatar: (_, { file }, ctx) => userService.updateAvatar(file, ctx),
-    deleteAvatar:(_, {}, ctx) => userService.deleteAvatar(ctx),
-  }
+    deleteAvatar: (_, {}, ctx) => userService.deleteAvatar(ctx),
+    updateUser: (_, { input }, ctx) => userService.updateUser(input, ctx),
+  },
 };
 
 module.exports = resolvers;

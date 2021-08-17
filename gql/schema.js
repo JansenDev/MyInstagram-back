@@ -37,6 +37,14 @@ const typeDefs = gql`
     password: String!
   }
 
+  input UserUpdateInput {
+    oldPassword: String
+    newPassword: String
+    # repeatPassword: String
+    email: String
+    webSite: String
+  }
+
   #//* METODOS
   # GET
   type Query {
@@ -49,7 +57,8 @@ const typeDefs = gql`
     register(input: UserInput): User
     login(input: LoginInput): Token
     updateAvatar(file: Upload): UpdateAvatar
-    deleteAvatar:Boolean
+    deleteAvatar: Boolean
+    updateUser(input: UserUpdateInput): Boolean
   }
 `;
 
