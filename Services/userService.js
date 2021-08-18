@@ -121,13 +121,22 @@ async function updateUser(input, ctx) {
       const newPasswordEncrypted = await bcryptjs.hash(input.newPassword, salt);
 
       await User.findByIdAndUpdate(id, { password: newPasswordEncrypted });
+      return {
+        status: true,
+      };
     } else {
       await User.findByIdAndUpdate(id, input);
+      return {
+        status: true,
+        ...input,
+      };
     }
-    return true;
+    // return true;
   } catch (error) {
     console.log(error);
-    return false;
+    return {
+      status: false,
+    };
   }
 }
 

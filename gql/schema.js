@@ -42,7 +42,24 @@ const typeDefs = gql`
     newPassword: String
     # repeatPassword: String
     email: String
-    webSite: String
+    siteweb: String
+    description:String
+  }
+# CAMBIAR SALIDA DE UPDATEUSER PARA ACTUALIZAR LA CACHE
+# Convertir el typo test a una interfaz para extender(etc) para las buenas practicas
+type Test{
+    # oldPassword: String
+    # newPassword: String
+    email: String
+    siteweb: String
+    description:String
+  }
+
+  type UpdateUserOutput{
+    status:Boolean
+    email: String
+    siteweb: String
+    description:String
   }
 
   #//* METODOS
@@ -58,7 +75,7 @@ const typeDefs = gql`
     login(input: LoginInput): Token
     updateAvatar(file: Upload): UpdateAvatar
     deleteAvatar: Boolean
-    updateUser(input: UserUpdateInput): Boolean
+    updateUser(input: UserUpdateInput): UpdateUserOutput   
   }
 `;
 
