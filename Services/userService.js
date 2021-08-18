@@ -66,6 +66,14 @@ async function getUser(id, username) {
   return user;
 }
 
+async function searchUsers(search) {
+  const usersFound = await User.find({
+    name: { $regex: search, $options: "i" },
+  });
+
+  return usersFound;
+}
+
 async function updateAvatar(file, ctx) {
   // console.log(ctx);
   const idUser = ctx.user.id;
@@ -147,4 +155,5 @@ module.exports = {
   updateAvatar,
   deleteAvatar,
   updateUser,
+  searchUsers,
 };

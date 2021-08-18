@@ -67,6 +67,8 @@ type Test{
   type Query {
     #User
     getUser(id: ID, username: String): User
+    searchUsers(search:String):[User]
+    isFollow(username:String!):Boolean
   }
   # POST, PUT, DELETE
   type Mutation {
@@ -76,6 +78,10 @@ type Test{
     updateAvatar(file: Upload): UpdateAvatar
     deleteAvatar: Boolean
     updateUser(input: UserUpdateInput): UpdateUserOutput   
+
+    #Follow
+    follow(username:String!):Boolean
+    unFollow(username:String!):Boolean
   }
 `;
 

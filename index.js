@@ -37,7 +37,7 @@ function server() {
             token.replace("Bearer ", ""),
             process.env.SECRET_KEY
           );
-          //   console.log(user);
+          
           return { user };
         } catch (error) {
           throw new Error("Token invalido");
