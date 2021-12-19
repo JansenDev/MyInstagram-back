@@ -11,22 +11,16 @@ async function addComment(input, ctx) {
       comment,
     });
 
-    const data = await result.save();
-    console.log(data);
+    await result.save();
     return result;
   } catch (error) {
     console.log(error);
   }
-
-  console.log("comentado");
-  console.log(input);
-  console.log(ctx);
 }
 
 async function getComments(idPost) {
   try {
-    const result = await Comment.find({ idPost })
-      .populate("idUser");
+    const result = await Comment.find({ idPost }).populate("idUser");
     return result;
   } catch (error) {
     console.log(error);

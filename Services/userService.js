@@ -54,6 +54,7 @@ async function login(input) {
 // TODO:cambiar a 1 hora
   return {
     token: createToken(userFound, process.env.SECRET_KEY, "8h"),
+    token: createToken(userFound, process.env.SECRET_KEY, 15),
   };
 }
 
