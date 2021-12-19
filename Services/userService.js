@@ -51,10 +51,8 @@ async function login(input) {
 
   const passwordSuccess = await bcryptjs.compare(password, userFound.password);
   if (!passwordSuccess) throw new Error("Email or password incorrect!");
-// TODO:cambiar a 1 hora
   return {
-    token: createToken(userFound, process.env.SECRET_KEY, "8h"),
-    token: createToken(userFound, process.env.SECRET_KEY, 15),
+    token: createToken(userFound, process.env.SECRET_KEY, "4h"),
   };
 }
 
@@ -80,7 +78,7 @@ async function updateAvatar(file, ctx) {
   const { createReadStream, mimetype, filename } = await file;
 
   const filExtension = mimetype.split("/")[1];
-  const fileName = filename.split(".")[0]
+  const fileName = filename.split(".")[0];
   const imageName = `avatar/${idUser}${fileName}.${filExtension}`;
   const fileData = createReadStream(); //Error solucionado al instalar la libreria graphql-update
 
