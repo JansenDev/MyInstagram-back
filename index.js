@@ -37,7 +37,7 @@ function server() {
             token.replace("Bearer ", ""),
             process.env.SECRET_KEY
           );
-          
+
           return { user };
         } catch (error) {
           throw new Error("Token invalido");
@@ -46,7 +46,7 @@ function server() {
     },
   });
 
-  serverApollo.listen().then(({ url }) => {
+  serverApollo.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
     console.log(`Apollo server on ${url}`);
   });
 }
